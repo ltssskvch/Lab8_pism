@@ -119,5 +119,10 @@ public class WorkingWIthArrayList {
         return sortedMap;
     }
 
-
+    public void printArrayList() {
+        for (String element : arrayList) {
+            System.out.println(element);
+        }
+    }
+    
 }
