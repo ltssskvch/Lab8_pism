@@ -1,18 +1,19 @@
 import java.util.ArrayList;
 
-public class ExtendedArrayList<T> extends ArrayList<T> {
+public class ExtendedArrayList<String> extends WorkingWIthArrayList {
 
-    public ExtendedArrayList() {
-        super();
+    public ExtendedArrayList(ArrayList<String> arrayList) {
+        super(arrayList);
     }
 
     public boolean compareInnerObjects(int firstIndex, int secondIndex) {
         if (firstIndex >= 0 && firstIndex < size() && secondIndex >= 0 && secondIndex < size()) {
-            T firstObject = get(firstIndex);
-            T secondObject = get(secondIndex);
+            String firstObject = (String) get(firstIndex);
+            String secondObject = (String) get(secondIndex);
             return firstObject.equals(secondObject);
         } else {
-            throw new IndexOutOfBoundsException("Invalid index");
+            System.out.println("error");
+            return false;
         }
     }
 }

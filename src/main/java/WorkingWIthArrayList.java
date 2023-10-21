@@ -1,6 +1,7 @@
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class WorkingWIthArrayList {
+public class WorkingWIthArrayList extends ArrayList<String>{
     private ArrayList<String> arrayList;
 
     public WorkingWIthArrayList(ArrayList arrayList) {
@@ -16,7 +17,7 @@ public class WorkingWIthArrayList {
     }
 
     public WorkingWIthArrayList(String filePath){
-        initializeListFromTextFile(filePath);
+        this.arrayList = initializeListFromTextFile(filePath);
     }
 
     public ArrayList getArrayList() {
@@ -29,12 +30,14 @@ public class WorkingWIthArrayList {
 
     public void addElement(String string){
         arrayList.add(string);
+        System.out.println("Element is added");
     }
 
     public void deleteElement(int position){
         if (position>=0 && position<arrayList.size()){
             arrayList.remove(position);
-        }
+            System.out.println("Element is deleted");
+        }else System.out.println("Error");
     }
 
     public void deleteElement(String string){
@@ -58,6 +61,7 @@ public class WorkingWIthArrayList {
             String reversed = new StringBuilder(original).reverse().toString();
             arrayList.set(i, reversed);
         }
+        System.out.println("Strings are reversed");
     }
 
     public Map<Character, Integer> getCharacterStatistics() {
@@ -86,15 +90,18 @@ public class WorkingWIthArrayList {
         return result;
     }
 
-    public void initializeListFromTextFile(String filePath) {
+    public ArrayList<String> initializeListFromTextFile(String filePath) {
+        ArrayList<String> temp = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                arrayList.add(line);
+                temp.add(line);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        return temp;
     }
 
     public Map<Integer, List<String>> countAndSortStringLengths() {
@@ -124,5 +131,6 @@ public class WorkingWIthArrayList {
             System.out.println(element);
         }
     }
-    
+
+
 }
