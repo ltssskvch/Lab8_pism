@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws JAXBException {
-        ExtendedArrayList newArrayList = new ExtendedArrayList<String>(new ArrayList<>());
+        WorkingWIthArrayList newArrayList = new WorkingWIthArrayList(new ArrayList<>());
 
         newArrayList.addElement("Tanya");
         newArrayList.addElement("Vanya");
@@ -17,7 +17,7 @@ public class Main {
         workWithFunctions(newArrayList);
     }
 
-    public static void workWithFunctions(ExtendedArrayList newArrayList) throws JAXBException {
+    public static void workWithFunctions(WorkingWIthArrayList newArrayList) throws JAXBException {
         Scanner scanner = new Scanner(System.in);
 
         while (true) {
@@ -65,9 +65,8 @@ public class Main {
                 case 5: {
                     String substring;
                     System.out.print("Enter the substring: ");
-                    scanner.next();
-                    substring = scanner.nextLine();
-                    System.out.println(newArrayList.findSubstring(substring));
+                    substring = scanner.next();
+                    newArrayList.findSubstring(substring);
                     break;
                 }
                 case 6: {
@@ -93,7 +92,15 @@ public class Main {
                     System.out.println("Enter the position of the elements that you want to compare: ");
                     position1 = scanner.nextInt();
                     position2 = scanner.nextInt();
-                    System.out.println(newArrayList.compareInnerObjects(position1, position2));
+
+                    if(newArrayList.compareInnerObjects(position1, position2)){
+                        System.out.println("Elements with indexes:" + position1 + " and " + position2 +
+                                "the same");
+                    }else{
+                        System.out.println("Elements with indexes:" + position1 + " and " + position2 +
+                                " different");
+                    }
+
                     break;
                 }
                 case 10: {

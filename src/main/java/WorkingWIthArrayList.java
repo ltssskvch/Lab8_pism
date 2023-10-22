@@ -1,7 +1,3 @@
-import jakarta.xml.bind.JAXBContext;
-import jakarta.xml.bind.JAXBException;
-import jakarta.xml.bind.Marshaller;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -44,13 +40,15 @@ public class WorkingWIthArrayList extends ArrayList<String>{
         arrayList.remove(string);
     }
 
-    public void saveArrayListToXML(String xmlFilePath) throws JAXBException {
-        try {
-            JAXBContext context = JAXBContext.newInstance(ArrayList.class);
-            Marshaller marshaller = context.createMarshaller();
-
-            marshaller.marshal(arrayList, new File(xmlFilePath));
-        } catch (JAXBException e) {
+    public void saveArrayListToXML(String xmlFilePath) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(xmlFilePath))) {
+            writer.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+            writer.write("<arrayList>\n");
+            for (String element : arrayList) {
+                writer.write("    <element>" + element + "</element>\n");
+            }
+            writer.write("</arrayList>");
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -78,16 +76,12 @@ public class WorkingWIthArrayList extends ArrayList<String>{
         return statistics;
     }
 
-    public ArrayList<String> findSubstring(String substring) {
-        ArrayList<String> result = new ArrayList<>();
-
+    public void findSubstring(String substring) {
         for (String str : arrayList) {
             if (str.contains(substring)) {
-                result.add(str);
+                System.out.println(str);
             }
         }
-
-        return result;
     }
 
     public ArrayList<String> initializeListFromTextFile(String filePath) {
@@ -132,5 +126,12 @@ public class WorkingWIthArrayList extends ArrayList<String>{
         }
     }
 
-
+    public boolean compareInnerObjects(int firstIndex, int secondIndex) {
+        if (firstIndex >= 0 && firstIndex < arrayList.size() && secondIndex >= 0 && secondIndex < arrayList.size()) {
+            return arrayList.get(firstIndex).equals(arrayList.get(secondIndex));
+        } else {
+            System.out.println("error");
+            return false;
+        }
+    }
 }
